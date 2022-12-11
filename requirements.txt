@@ -1,0 +1,6 @@
+opencv-python
+spellchecker
+numpy
+pytesseract
+argparse
+pillow
