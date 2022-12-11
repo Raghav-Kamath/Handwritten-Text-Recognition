@@ -1,6 +1,6 @@
 # Handwritten-Text-Recognition
 
-install the required modules using 
+To install the required modules open command prompt in the folder and type
 
 $ pip install -r requirements.txt
 
