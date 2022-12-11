@@ -1,7 +1,6 @@
 import cv2, os, argparse
 from mylib import Config
 from mylib.TesseractPython import tesseract_class
-from mylib.LogData import logger_class
 from mylib.SpellChecker import correct_sentence
 from mylib.Pre import preproc
 
@@ -29,12 +28,13 @@ class LiveOCR(object):
             if self.capture.isOpened():
                 # Read frame
                 (self.status, self.frame) = self.capture.read()
-                cv2.imshow('Test_Window', self.frame)
                 x,y,w,h = 0,0,270,60
+                # Add text
+                cv2.putText(self.frame, "c=crop, q=quit", (x + int(w/10),y + int(h/2)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                cv2.imshow('Test_Window', self.frame)
+                cv2.putText(self.frame, "c=crop, q=quit, r=resume", (x + int(w/10),y + int(h/2)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                 # Add background
                 cv2.rectangle(self.frame, (x, x), (x + w, y + h), (255, 255, 255), 1)
-                # Add text
-                cv2.putText(self.frame, "c=crop, r=resume, q=quit", (x + int(w/10),y + int(h/2)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
                 key = cv2.waitKey(2)
 
@@ -55,6 +55,10 @@ class LiveOCR(object):
                         # Resume video
                         if key == ord('r'):
                             break
+
+                        if key == ord('q'):
+                            cv2.destroyAllWindows()
+                            exit(1)
 
                 if key == ord('q'):
                     cv2.destroyAllWindows()
@@ -112,8 +116,6 @@ class LiveOCR(object):
         else:
             print("")
             print('Without img. processing:', output)
-            if Config.Log:
-                logger_class.save_log(output)
             if Config.ImProc:
                 preproc.contrast(self.cropped_image)
                 proc_out = tesseract_class.extract_ocr('data/processed image.png')
@@ -121,14 +123,6 @@ class LiveOCR(object):
                 print("========================")
                 print("")
                 print('After img. processing:', proc_out)
-
-        # To translate different languages
-        if Config.Translate:
-            output = tesseract_class.translate_ocr('data/cropped image.png')
-            if Config.Log:
-                logger_class.save_log_trans(output)
-
-
 
 if __name__ == '__main__':
     Live_OCR = LiveOCR()

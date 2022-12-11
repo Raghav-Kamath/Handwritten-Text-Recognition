@@ -6,10 +6,6 @@
 Webcam = True
 # To correct text sentences.
 Correct = True
-# To save extracted text in a simple log.
-Log = False
-# Text translation from foreign lang. to English.
-Translate = False
 # Image processing to get better output.
 ImProc = True
 #===============================================================================
