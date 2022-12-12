@@ -1,4 +1,5 @@
 opencv-python
+pyspellchecker
 spellchecker
 numpy
 pytesseract
