@@ -113,16 +113,20 @@ class LiveOCR(object):
             print("")
             print("Without text correction:", output)
 
-        else:
+        if Config.ImProc:
+            preproc.contrast(self.cropped_image)
+            proc_out = tesseract_class.extract_ocr('data/processed image.png')
+            print("")
+            print("========================")
+            print("")
+            print('After img. processing:', proc_out)
             print("")
             print('Without img. processing:', output)
-            if Config.ImProc:
-                preproc.contrast(self.cropped_image)
-                proc_out = tesseract_class.extract_ocr('data/processed image.png')
-                print("")
-                print("========================")
-                print("")
-                print('After img. processing:', proc_out)
+        
+        if Config.ImProc == False and Config.ImProc == False :
+            print("")
+            print('Without any img. processing or text correction:', output)
+
 
 if __name__ == '__main__':
     Live_OCR = LiveOCR()
