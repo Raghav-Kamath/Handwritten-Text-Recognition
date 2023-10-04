@@ -14,5 +14,7 @@ https://github.com/UB-Mannheim/tesseract/wiki
 If you would like to test on a video file, set **Webcam** = **False** and place your file in the 'tests' folder.
 Then run with the command: 
 
-```python run.py -i tests/test.mp4 ``` 
+```
+python run.py -i tests/test.mp4
+``` 
 by simply implying the path to your file.
